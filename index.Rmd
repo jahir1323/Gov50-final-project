@@ -1,6 +1,6 @@
 ---
 title: "Gov 50 Final Project"
-author: "Your Name Here"
+author: "Jahir Tineo Castillo"
 description: "My final project"
 output:
   distill::distill_article:
@@ -11,4 +11,4 @@ output:
 
 ## Project thoughts
 
-I am interested in exploring data related to...
+I am interested in exploring data related to immigration levels and poverty rate by year in the United States. I'm interested in this topic because immigration rates to the US has been increasing in the past few years. Our federal and state government are having difficulties finding solutions to issues that are imperative to the US. I would like to analyze data based on these levels of immigration and see how they impact the labor market of the US. Using this data I will be able to come up with a conclusion on whether being native born or foreign born plays a role in ones success in a melting pot of a country. The data for this project can be derived from sources such as the US Census and or the department of Homeland Security report on immigration. As I strengthen my skills using Rstudio and R I will be able to add more variables to account for the data that is not available. 
