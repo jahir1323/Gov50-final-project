@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.17/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["FebPwtExport1142023.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","MIG_04112023030142402.csv"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1519,7 +1519,123 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-article">
 <h2 id="project-thoughts">Project thoughts</h2>
 <p>I am interested in exploring data related to immigration levels and poverty rate by year in the United States. I’m interested in this topic because immigration rates to the US has been increasing in the past few years. Our federal and state government are having difficulties finding solutions to issues that are imperative to the US. I would like to analyze data based on these levels of immigration and see how they impact the labor market of the US. Using this data I will be able to come up with a conclusion on whether being native born or foreign born plays a role in ones success in a melting pot of a country. The data for this project can be derived from sources such as the US Census and or the department of Homeland Security report on immigration. As I strengthen my skills using Rstudio and R I will be able to add more variables to account for the data that is not available.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readr.tidyverse.org'>readr</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://scales.r-lib.org'>scales</a></span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>gdpdata1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"~/Desktop/Gov 50/Gov50-final-project/FebPwtExport1142023.csv"</span><span class='op'>)</span></span>
+<span><span class='va'>gdpdata1</span></span></code></pre>
+</div>
+<pre><code># A tibble: 10,399 × 4
+   VariableCode RegionCode YearCode AggValue
+   &lt;chr&gt;        &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;
+ 1 rgdpna       ABW            1970     262.
+ 2 rgdpna       ABW            1971     286.
+ 3 rgdpna       ABW            1972     312.
+ 4 rgdpna       ABW            1973     341.
+ 5 rgdpna       ABW            1974     371.
+ 6 rgdpna       ABW            1975     405.
+ 7 rgdpna       ABW            1976     442.
+ 8 rgdpna       ABW            1977     482.
+ 9 rgdpna       ABW            1978     526.
+10 rgdpna       ABW            1979     574.
+# ℹ 10,389 more rows</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>imgdata1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"~/Desktop/Gov 50/Gov50-final-project/MIG_04112023030142402.csv"</span><span class='op'>)</span></span>
+<span><span class='va'>imgdata1</span></span></code></pre>
+</div>
+<pre><code># A tibble: 464,640 × 13
+   CO2   Country of birth/national…¹ VAR   Variable GEN   Gender COU  
+   &lt;chr&gt; &lt;chr&gt;                       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
+ 1 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 2 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 3 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 4 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 5 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 6 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 7 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 8 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 9 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+10 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+# ℹ 464,630 more rows
+# ℹ abbreviated name: ¹​`Country of birth/nationality`
+# ℹ 6 more variables: Country &lt;chr&gt;, YEA &lt;dbl&gt;, Year &lt;dbl&gt;,
+#   Value &lt;dbl&gt;, `Flag Codes` &lt;lgl&gt;, Flags &lt;lgl&gt;</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>avg_gdp_country</span> <span class='op'>&lt;-</span> <span class='va'>gdpdata1</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>RegionCode</span>, <span class='va'>YearCode</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>AverageAggValue <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>AggValue</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>avg_gdp_country</span></span></code></pre>
+</div>
+<pre><code># A tibble: 10,399 × 3
+# Groups:   RegionCode [183]
+   RegionCode YearCode AverageAggValue
+   &lt;chr&gt;         &lt;dbl&gt;           &lt;dbl&gt;
+ 1 ABW            1970            262.
+ 2 ABW            1971            286.
+ 3 ABW            1972            312.
+ 4 ABW            1973            341.
+ 5 ABW            1974            371.
+ 6 ABW            1975            405.
+ 7 ABW            1976            442.
+ 8 ABW            1977            482.
+ 9 ABW            1978            526.
+10 ABW            1979            574.
+# ℹ 10,389 more rows</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>filtered_data</span> <span class='op'>&lt;-</span> <span class='va'>avg_gdp_country</span>  <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>YearCode</span> <span class='op'>&gt;=</span> <span class='fl'>2010</span>, <span class='va'>YearCode</span> <span class='op'>&lt;=</span> <span class='fl'>2019</span><span class='op'>)</span>  <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='va'>YearCode</span>, values_from <span class='op'>=</span> <span class='va'>AverageAggValue</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>filtered_data</span></span></code></pre>
+</div>
+<pre><code># A tibble: 183 × 11
+# Groups:   RegionCode [183]
+   RegionCode  `2010` `2011` `2012` `2013` `2014` `2015` `2016` `2017`
+   &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1 ABW         2.69e3 2.70e3 2.66e3 2.78e3 2.78e3 2.94e3 3.00e3 3.06e3
+ 2 AGO         1.90e5 1.96e5 2.13e5 2.24e5 2.34e5 2.37e5 2.30e5 2.30e5
+ 3 AIA         2.04e2 2.11e2 1.99e2 1.98e2 2.08e2 2.14e2 2.09e2 1.96e2
+ 4 ALB         2.98e4 3.06e4 3.10e4 3.13e4 3.19e4 3.26e4 3.37e4 3.50e4
+ 5 ARE         4.64e5 4.96e5 5.18e5 5.45e5 5.68e5 5.97e5 6.15e5 6.30e5
+ 6 ARG         9.45e5 1.00e6 9.92e5 1.02e6 9.90e5 1.02e6 9.96e5 1.02e6
+ 7 ARM         2.86e4 3.00e4 3.21e4 3.32e4 3.44e4 3.55e4 3.55e4 3.82e4
+ 8 ATG         1.16e3 1.13e3 1.17e3 1.17e3 1.21e3 1.26e3 1.33e3 1.37e3
+ 9 AUS         1.07e6 1.11e6 1.14e6 1.17e6 1.19e6 1.23e6 1.25e6 1.29e6
+10 AUT         4.16e5 4.28e5 4.31e5 4.32e5 4.34e5 4.39e5 4.47e5 4.58e5
+# ℹ 173 more rows
+# ℹ 2 more variables: `2018` &lt;dbl&gt;, `2019` &lt;dbl&gt;</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>countryavggdp</span> <span class='op'>&lt;-</span> <span class='va'>gdpdata1</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>YearCode</span> <span class='op'>&gt;=</span> <span class='fl'>2010</span> <span class='op'>&amp;</span> <span class='va'>YearCode</span> <span class='op'>&lt;=</span> <span class='fl'>2019</span>, </span>
+<span>         <span class='va'>RegionCode</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"USA"</span>, <span class='st'>"JPN"</span>, <span class='st'>"CHN"</span>, <span class='st'>"CAN"</span>, <span class='st'>"BRA"</span>, <span class='st'>"ESP"</span>, <span class='st'>"FRA"</span>, <span class='st'>"SWE"</span>, <span class='st'>"KOR"</span>, <span class='st'>"MEX"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>countryavggdp</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>YearCode</span>, y <span class='op'>=</span> <span class='va'>AggValue</span>, group <span class='op'>=</span> <span class='va'>RegionCode</span>, color <span class='op'>=</span> <span class='va'>RegionCode</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Average GDP by Country from 2010 to 2019"</span>,</span>
+<span>       x <span class='op'>=</span> <span class='st'>"Year"</span>,</span>
+<span>       y <span class='op'>=</span> <span class='st'>"Average GDP per Capita"</span>,</span>
+<span>       color <span class='op'>=</span> <span class='st'>"Countries"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fl'>2010</span><span class='op'>:</span><span class='fl'>2019</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>labels <span class='op'>=</span> <span class='fu'><a href='https://scales.r-lib.org/reference/label_number.html'>label_number</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
+</div>
+<p>Graph Abouve Represents Average GDP per country in the past 10 years from 20 to 2019.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
