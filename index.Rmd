@@ -17,28 +17,88 @@ I am interested in exploring data related to immigration levels and poverty rate
 library(tidyverse)
 library(readr)
 library(scales)
+library(dplyr)
+library(infer)
+library(ggplot2)
+library(broom)
 ```
 
 ```{r}
 gdpdata1 <- read_csv("~/Desktop/Gov 50/Gov50-final-project/FebPwtExport1142023.csv")
 gdpdata1
-
-
-imgdata1 <- read_csv("~/Desktop/Gov 50/Gov50-final-project/MIG_04112023030142402.csv")
-imgdata1
-
 ```
 
 ```{r}
+imgdata1 <- read_csv("~/Desktop/Gov 50/Gov50-final-project/MIG_04112023030142402.csv")
+imgdata1
+```
+## Rename gdpdata1 column from YearCode to Year 
+```{r}
+gdpdata1 <- rename(gdpdata1, Year = YearCode)
+
+```
+
+
+
+```{r}
+usa_gdpdata1 <- filter(gdpdata1, RegionCode =='USA', Year >= '2000')
+usa_gdpdata1
+
+usa_imgdata1 <- filter(imgdata1, VAR == 'B11', COU == 'USA') 
+usa_imgdata1
+
+usa_gdpdata1_imgdata1 <- left_join(imgdata1, usa_gdpdata1, by = "Year")
+usa_gdpdata1_imgdata1
+```
+
+```{r}
+usa_gdpdata1_imgdata1 |>
+  filter(VAR == 'B11', COU == 'USA') 
+usa_gdpdata1_imgdata1
+```
+
+
+```{r}
+usa_imgdata1 <- filter(imgdata1, VAR == 'B11', COU == 'USA') 
+usa_imgdata1
+```
+
+```{r}
+usa_gdpdata1_imgdata1 <- usa_gdpdata1_imgdata1 |>
+  drop_na(AggValue, Value)
+
+ggplot(usa_gdpdata1_imgdata1, aes(x = AggValue, y = Value)) +
+  geom_point() +  
+  geom_smooth(method = "lm", color = "blue", se = FALSE) + 
+  ylim(10000, 200000) +
+  labs(title = "Relationship Between GDP and Inflow of Immigrants to the USA",
+       x = "GDP (Aggregated Value)",
+       y = "Inflow of Immigrants") 
+
+
+cor(usa_gdpdata1_imgdata1$AggValue, usa_gdpdata1_imgdata1$Value, use = "pairwise")
+
+model2 <- lm(AggValue ~ Value, data = usa_gdpdata1_imgdata1)
+
+summary(model2)
+
+ broom::tidy(model2) |>
+  knitr::kable(digits = 2)
+```
+Coefficient = 0.003755969 
+p-value = 0.8148
+
+
+```{r}
 avg_gdp_country <- gdpdata1 |>
-  group_by(RegionCode, YearCode) |>
+  group_by(RegionCode, Year) |>
   summarize(AverageAggValue = mean(AggValue, na.rm = TRUE))
 avg_gdp_country
 
 
 filtered_data <- avg_gdp_country  |>
-  filter(YearCode >= 2010, YearCode <= 2019)  |>
-  pivot_wider(names_from = YearCode, values_from = AverageAggValue)
+  filter(Year >= 2010, Year <= 2019)  |>
+  pivot_wider(names_from = Year, values_from = AverageAggValue)
 
 filtered_data
 
@@ -46,12 +106,12 @@ filtered_data
 ```
 ```{r}
 countryavggdp <- gdpdata1 |>
-  filter(YearCode >= 2010 & YearCode <= 2019, 
+  filter(Year >= 2010 & Year <= 2019, 
          RegionCode %in% c("USA", "JPN", "CHN", "CAN", "BRA", "ESP", "FRA", "SWE", "KOR", "MEX"))
 
 
 
-ggplot(countryavggdp, aes(x = YearCode, y = AggValue, group = RegionCode, color = RegionCode)) +
+ggplot(countryavggdp, aes(x = Year, y = AggValue, group = RegionCode, color = RegionCode)) +
   geom_line() + 
   geom_point() + 
   theme_minimal() +
@@ -64,5 +124,95 @@ ggplot(countryavggdp, aes(x = YearCode, y = AggValue, group = RegionCode, color 
  
 ```
 
-Graph Abouve Represents Average GDP per country in the past 10 years from 20 to 2019.
+
+
+```{r}
+inflows <- imgdata1 |>
+  filter(VAR == 'B11')
+
+model <- lm(Value ~ Year, data = inflows) 
+
+ggplot(inflows, aes(x = Year, y = Value)) +
+  geom_point() + 
+  geom_smooth(method = 'lm', se = FALSE, color = 'blue') +  
+  ylim(100000, 200000) +
+  labs(title = 'Regression of Inflows of Foreign Population by Year',
+       x = 'Year',
+       y = 'Number of Inflows')
+
+cor(usa_gdpdata1_imgdata1$AggValue, usa_gdpdata1_imgdata1$Value, use = "pairwise")
+
+lm(Value ~ Year, data = inflows)
+
+summary(model)
+```
+
+```{r}
+us_inflows <- imgdata1 |> 
+  filter(VAR == 'B11', COU == 'USA')
+
+ggplot(us_inflows, aes(x = Year, y = Value)) +
+  geom_point() +
+  geom_smooth(method = 'lm', se = FALSE, color = 'red') +
+  ylim(10000, 200000) +
+  labs(title = 'Regression of Inflows of Immigrants to the United States by Year',
+       x = 'Year 2010-2019',
+       y = 'Number of Inflows of immigrants') 
+
+```
+
+Introduction:
+
+Research question: To what extent does a country aggregate GDP contribute to inflow of migrants into the United States? Does an increase in gdp correlate to an increase in immigrants into a country? 
+
+Hypothesis: There is a statistically significant correlation bewteen a countries aggregate GDP (gross domestic product) and inflow of migrants into the United States. 
+
+Null hypothesis: There is no statistically significant relationship between a countries aggregate GDP and inflow of migrants intot the United States. A country GDP has no effect on the migration rate into the USA. 
+
+Independent variables: Aggregated GDP of the United States
+
+Depdent variable: Inflow of immigrants into the United States
+
+In this study I would like to analyze the relationship between immigration levels into the United States and the relative aggregate GDP. In the past few years there has been an increase in immigration into the United States due to many factors like work, family, or lack of safety in native country. Currently, the US government has been polarized on the topic of immigration to the extent of impacting civil and international relationships with other countries. In this study we will determine wether the large countries like the US who has one of the highest aggregate GDP benefits from immigration. Regardless of the findings of this study, the american economy benefits from an increase in labor which stimulates the economy. This study has great importance because it can be used to encourage policies that benefits both foreign and native individuals in the US. 
+
+
+Data:
+Graph 1:
+
+This graph illustrates the cumulative aggregate GDP for the following countries; United States, China, Sweden, Mexico, Korea, Japan, France, Spain, Canada, and Great Britain. The data illustrates countries respective gdp, these countries were selected because they make up majority of the worlds wealth. The three contenders witht he highest gdp were the United States, China, followed by Japan. As of 2019, the US and China have the highest gdp that is steadily increasing per year. Due to the US having the largest gdp, we will use it as a sample for the following investigation. 
+
+Graph 2: 
+This scatter plot illstrates the relationshiop between aggregate gdp and inflow of immigrants to the United States. The points are scattered all around the graph indicating that there may be a weak relationship between variables. There’s an abundant amount of outliers that roam above the regression line. The regression line is depicted by the blue line that has a weak positive slope, seems to be completely horizontal. The graph illustrates a very low positive correlation between the variables that emphasizes by the non linear relationship between the points. 
+
+
+In this section the coefficient and p-value were also produced. The correlation coefficient is 0.003755969, 0.00376 rounded. The p-value, or the significance level is 0.8148, 0.815 rounded.  
+
+
+Results:
+
+Based on the data illustrated by the graph above and the correlation coefficient along with the p-value the data can briefly be analyzed. The correlation coefficient is 0.003755969 while the p-value equates to  0.8148. Considering that the regression line appears to be horizontal it indicates that theres not a strong relationship between variables (GDP and inflow of immigrants). The correlation coefficient also indicates that theres a very weak linear relationship between the variables. 
+
+Due to the correlations being weak, additional test were conducted like the p-value, which gave us a value of 0.8148 or 81 percent significance. The p-value associated with regression coefficient will aid in establishing a true test of relationship between variables. P-value that are smaller or equal to 0.05 (P < 0.05, 5%) indicates that there strong evidence to reject the null hypothesis. For this data it suggest the opposite, meaning that the relationship between variables are not statistically significant. Emphasizing that there’s an 81 percent probability that these results were generated by chance. 
+
+In conclusion there is no evidence to support that the null hypothesis should be rejected. Meaning that there is not evidence evidence to support the hypothesis on wether theres a linear relationship between the variables inflows of immigrants and the US aggregate gdp. Although we fail to reject the null hypothesis, this just means that more evidence is needed to fully establish a relationship. These results should not be interpreted casually as there is a lack of evidence to support the hypothesis. If one wanted to interpret the results casually they would need more resources which would lead to more in depth evidence. One thing that’s important to note is that this data may be influenced by other factors thats not included in this investigation. 
+
+
+Conclusion:
+
+In conclusion, the data does not support the hypothesis. There is no clear linear relationship between inflows of immigrants to United States aggregate gross domestic product (GDP). Given a correlation that is approximate to zero and a p-value that is higher than the rejection of null hypothesis point of 5%, the data does not provide sufficient evidence to reject the null hypothesis. This means that the aforementioned hypothesis does not have evidence to support it.  
+
+In this study there’s a few limitations that may impact the results. For instance, there may missing data that was not collected that may influence the outcome. Although the data was gathered by reputable sources, a limitation would be that the origin or the methodology of gathering the data was not published. Meaning that one has to assume that the data that is given is the only data that is prominent. Another limitation would be that the hypothesis assumes that theres a linear relationship between variables, in another experiment I would see if there’s evidence to support a non-linear relationship. A common limitation would be that theres measurement or computing errors. Human errors is common on cross-sectional design investigations. With more time, resources, and money I would analyze where I went wrong. I would also want to do a long term investigation between variables to establish wether or not there’s a relationship. 
+
+
+
+Graph Above Represents Average GDP per country in the past 10 years from 20 to 2019.
+
+sources:
+
+https://stats.oecd.org/Index.aspx?DataSetCode=MIG
+https://febpwt.webhosting.rug.nl
+https://febpwt.webhosting.rug.nl/Dmn/AggregateXs/PivotShow
+
+
+
 

@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["FebPwtExport1142023.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","MIG_04112023030142402.csv"]}
+  {"type":"character","attributes":{},"value":["FebPwtExport1142023.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-10-1.png","index_files/figure-html5/unnamed-chunk-11-1.png","index_files/figure-html5/unnamed-chunk-12-1.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/figure-html5/unnamed-chunk-8-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.24/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","MIG_04112023030142402.csv"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1523,7 +1523,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
 <span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readr.tidyverse.org'>readr</a></span><span class='op'>)</span></span>
-<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://scales.r-lib.org'>scales</a></span><span class='op'>)</span></span></code></pre>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://scales.r-lib.org'>scales</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/infer'>infer</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://broom.tidymodels.org/'>broom</a></span><span class='op'>)</span></span></code></pre>
 </div>
 </div>
 <div class="layout-chunk" data-layout="l-body">
@@ -1545,6 +1549,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
  9 rgdpna       ABW            1978     526.
 10 rgdpna       ABW            1979     574.
 # ℹ 10,389 more rows</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>imgdata1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"~/Desktop/Gov 50/Gov50-final-project/MIG_04112023030142402.csv"</span><span class='op'>)</span></span>
 <span><span class='va'>imgdata1</span></span></code></pre>
@@ -1567,32 +1573,253 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 # ℹ 6 more variables: Country &lt;chr&gt;, YEA &lt;dbl&gt;, Year &lt;dbl&gt;,
 #   Value &lt;dbl&gt;, `Flag Codes` &lt;lgl&gt;, Flags &lt;lgl&gt;</code></pre>
 </div>
+<h2 id="rename-gdpdata1-column-from-yearcode-to-year">Rename gdpdata1 column from YearCode to Year</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>gdpdata1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span><span class='va'>gdpdata1</span>, Year <span class='op'>=</span> <span class='va'>YearCode</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>usa_gdpdata1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>gdpdata1</span>, <span class='va'>RegionCode</span> <span class='op'>==</span><span class='st'>'USA'</span>, <span class='va'>Year</span> <span class='op'>&gt;=</span> <span class='st'>'2000'</span><span class='op'>)</span></span>
+<span><span class='va'>usa_gdpdata1</span></span></code></pre>
+</div>
+<pre><code># A tibble: 20 × 4
+   VariableCode RegionCode  Year AggValue
+   &lt;chr&gt;        &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+ 1 rgdpna       USA         2000 14143361
+ 2 rgdpna       USA         2001 14284560
+ 3 rgdpna       USA         2002 14533353
+ 4 rgdpna       USA         2003 14949183
+ 5 rgdpna       USA         2004 15517086
+ 6 rgdpna       USA         2005 16062235
+ 7 rgdpna       USA         2006 16520807
+ 8 rgdpna       USA         2007 16830766
+ 9 rgdpna       USA         2008 16807780
+10 rgdpna       USA         2009 16381405
+11 rgdpna       USA         2010 16801388
+12 rgdpna       USA         2011 17061950
+13 rgdpna       USA         2012 17445766
+14 rgdpna       USA         2013 17767130
+15 rgdpna       USA         2014 18215924
+16 rgdpna       USA         2015 18776158
+17 rgdpna       USA         2016 19097498
+18 rgdpna       USA         2017 19542980
+19 rgdpna       USA         2018 20128580
+20 rgdpna       USA         2019 20563592</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>usa_imgdata1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>imgdata1</span>, <span class='va'>VAR</span> <span class='op'>==</span> <span class='st'>'B11'</span>, <span class='va'>COU</span> <span class='op'>==</span> <span class='st'>'USA'</span><span class='op'>)</span> </span>
+<span><span class='va'>usa_imgdata1</span></span></code></pre>
+</div>
+<pre><code># A tibble: 4,273 × 13
+   CO2   Country of birth/national…¹ VAR   Variable GEN   Gender COU  
+   &lt;chr&gt; &lt;chr&gt;                       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
+ 1 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 2 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 3 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 4 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 5 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 6 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 7 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 8 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 9 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+10 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+# ℹ 4,263 more rows
+# ℹ abbreviated name: ¹​`Country of birth/nationality`
+# ℹ 6 more variables: Country &lt;chr&gt;, YEA &lt;dbl&gt;, Year &lt;dbl&gt;,
+#   Value &lt;dbl&gt;, `Flag Codes` &lt;lgl&gt;, Flags &lt;lgl&gt;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>usa_gdpdata1_imgdata1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>left_join</a></span><span class='op'>(</span><span class='va'>imgdata1</span>, <span class='va'>usa_gdpdata1</span>, by <span class='op'>=</span> <span class='st'>"Year"</span><span class='op'>)</span></span>
+<span><span class='va'>usa_gdpdata1_imgdata1</span></span></code></pre>
+</div>
+<pre><code># A tibble: 464,640 × 16
+   CO2   Country of birth/national…¹ VAR   Variable GEN   Gender COU  
+   &lt;chr&gt; &lt;chr&gt;                       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
+ 1 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 2 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 3 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 4 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 5 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 6 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 7 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 8 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 9 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+10 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+# ℹ 464,630 more rows
+# ℹ abbreviated name: ¹​`Country of birth/nationality`
+# ℹ 9 more variables: Country &lt;chr&gt;, YEA &lt;dbl&gt;, Year &lt;dbl&gt;,
+#   Value &lt;dbl&gt;, `Flag Codes` &lt;lgl&gt;, Flags &lt;lgl&gt;, VariableCode &lt;chr&gt;,
+#   RegionCode &lt;chr&gt;, AggValue &lt;dbl&gt;</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>usa_gdpdata1_imgdata1</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>VAR</span> <span class='op'>==</span> <span class='st'>'B11'</span>, <span class='va'>COU</span> <span class='op'>==</span> <span class='st'>'USA'</span><span class='op'>)</span> </span></code></pre>
+</div>
+<pre><code># A tibble: 4,273 × 16
+   CO2   Country of birth/national…¹ VAR   Variable GEN   Gender COU  
+   &lt;chr&gt; &lt;chr&gt;                       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
+ 1 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 2 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 3 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 4 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 5 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 6 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 7 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 8 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 9 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+10 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+# ℹ 4,263 more rows
+# ℹ abbreviated name: ¹​`Country of birth/nationality`
+# ℹ 9 more variables: Country &lt;chr&gt;, YEA &lt;dbl&gt;, Year &lt;dbl&gt;,
+#   Value &lt;dbl&gt;, `Flag Codes` &lt;lgl&gt;, Flags &lt;lgl&gt;, VariableCode &lt;chr&gt;,
+#   RegionCode &lt;chr&gt;, AggValue &lt;dbl&gt;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>usa_gdpdata1_imgdata1</span></span></code></pre>
+</div>
+<pre><code># A tibble: 464,640 × 16
+   CO2   Country of birth/national…¹ VAR   Variable GEN   Gender COU  
+   &lt;chr&gt; &lt;chr&gt;                       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
+ 1 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 2 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 3 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 4 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 5 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 6 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 7 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 8 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+ 9 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+10 AFG   Afghanistan                 B11   Inflows… TOT   Total  AUS  
+# ℹ 464,630 more rows
+# ℹ abbreviated name: ¹​`Country of birth/nationality`
+# ℹ 9 more variables: Country &lt;chr&gt;, YEA &lt;dbl&gt;, Year &lt;dbl&gt;,
+#   Value &lt;dbl&gt;, `Flag Codes` &lt;lgl&gt;, Flags &lt;lgl&gt;, VariableCode &lt;chr&gt;,
+#   RegionCode &lt;chr&gt;, AggValue &lt;dbl&gt;</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>usa_imgdata1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>imgdata1</span>, <span class='va'>VAR</span> <span class='op'>==</span> <span class='st'>'B11'</span>, <span class='va'>COU</span> <span class='op'>==</span> <span class='st'>'USA'</span><span class='op'>)</span> </span>
+<span><span class='va'>usa_imgdata1</span></span></code></pre>
+</div>
+<pre><code># A tibble: 4,273 × 13
+   CO2   Country of birth/national…¹ VAR   Variable GEN   Gender COU  
+   &lt;chr&gt; &lt;chr&gt;                       &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
+ 1 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 2 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 3 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 4 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 5 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 6 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 7 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 8 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+ 9 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+10 AFG   Afghanistan                 B11   Inflows… TOT   Total  USA  
+# ℹ 4,263 more rows
+# ℹ abbreviated name: ¹​`Country of birth/nationality`
+# ℹ 6 more variables: Country &lt;chr&gt;, YEA &lt;dbl&gt;, Year &lt;dbl&gt;,
+#   Value &lt;dbl&gt;, `Flag Codes` &lt;lgl&gt;, Flags &lt;lgl&gt;</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>usa_gdpdata1_imgdata1</span> <span class='op'>&lt;-</span> <span class='va'>usa_gdpdata1_imgdata1</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/drop_na.html'>drop_na</a></span><span class='op'>(</span><span class='va'>AggValue</span>, <span class='va'>Value</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>usa_gdpdata1_imgdata1</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>AggValue</span>, y <span class='op'>=</span> <span class='va'>Value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>  </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>"lm"</span>, color <span class='op'>=</span> <span class='st'>"blue"</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim</a></span><span class='op'>(</span><span class='fl'>10000</span>, <span class='fl'>200000</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Relationship Between GDP and Inflow of Immigrants to the USA"</span>,</span>
+<span>       x <span class='op'>=</span> <span class='st'>"GDP (Aggregated Value)"</span>,</span>
+<span>       y <span class='op'>=</span> <span class='st'>"Inflow of Immigrants"</span><span class='op'>)</span> </span></code></pre>
+</div>
+<img src="index_files/figure-html5/unnamed-chunk-8-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>usa_gdpdata1_imgdata1</span><span class='op'>$</span><span class='va'>AggValue</span>, <span class='va'>usa_gdpdata1_imgdata1</span><span class='op'>$</span><span class='va'>Value</span>, use <span class='op'>=</span> <span class='st'>"pairwise"</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] 0.002506653</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>model2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>AggValue</span> <span class='op'>~</span> <span class='va'>Value</span>, data <span class='op'>=</span> <span class='va'>usa_gdpdata1_imgdata1</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>model2</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>
+Call:
+lm(formula = AggValue ~ Value, data = usa_gdpdata1_imgdata1)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-3660882 -1042589  -362044  1352164  3139598 
+
+Coefficients:
+             Estimate Std. Error  t value Pr(&gt;|t|)    
+(Intercept) 1.742e+07  2.802e+03 6217.692   &lt;2e-16 ***
+Value       1.256e-02  7.828e-03    1.605    0.109    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 1792000 on 409733 degrees of freedom
+Multiple R-squared:  6.283e-06, Adjusted R-squared:  3.843e-06 
+F-statistic: 2.574 on 1 and 409733 DF,  p-value: 0.1086</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span> <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>model2</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span></code></pre>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">17423993.51</td>
+<td style="text-align: right;">2802.33</td>
+<td style="text-align: right;">6217.69</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Value</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">1.60</td>
+<td style="text-align: right;">0.11</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Coefficient = 0.003755969
+p-value = 0.8148</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>avg_gdp_country</span> <span class='op'>&lt;-</span> <span class='va'>gdpdata1</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>RegionCode</span>, <span class='va'>YearCode</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>RegionCode</span>, <span class='va'>Year</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>AverageAggValue <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>AggValue</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span></span>
 <span><span class='va'>avg_gdp_country</span></span></code></pre>
 </div>
 <pre><code># A tibble: 10,399 × 3
 # Groups:   RegionCode [183]
-   RegionCode YearCode AverageAggValue
-   &lt;chr&gt;         &lt;dbl&gt;           &lt;dbl&gt;
- 1 ABW            1970            262.
- 2 ABW            1971            286.
- 3 ABW            1972            312.
- 4 ABW            1973            341.
- 5 ABW            1974            371.
- 6 ABW            1975            405.
- 7 ABW            1976            442.
- 8 ABW            1977            482.
- 9 ABW            1978            526.
-10 ABW            1979            574.
+   RegionCode  Year AverageAggValue
+   &lt;chr&gt;      &lt;dbl&gt;           &lt;dbl&gt;
+ 1 ABW         1970            262.
+ 2 ABW         1971            286.
+ 3 ABW         1972            312.
+ 4 ABW         1973            341.
+ 5 ABW         1974            371.
+ 6 ABW         1975            405.
+ 7 ABW         1976            442.
+ 8 ABW         1977            482.
+ 9 ABW         1978            526.
+10 ABW         1979            574.
 # ℹ 10,389 more rows</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>filtered_data</span> <span class='op'>&lt;-</span> <span class='va'>avg_gdp_country</span>  <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>YearCode</span> <span class='op'>&gt;=</span> <span class='fl'>2010</span>, <span class='va'>YearCode</span> <span class='op'>&lt;=</span> <span class='fl'>2019</span><span class='op'>)</span>  <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='va'>YearCode</span>, values_from <span class='op'>=</span> <span class='va'>AverageAggValue</span><span class='op'>)</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Year</span> <span class='op'>&gt;=</span> <span class='fl'>2010</span>, <span class='va'>Year</span> <span class='op'>&lt;=</span> <span class='fl'>2019</span><span class='op'>)</span>  <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_wider.html'>pivot_wider</a></span><span class='op'>(</span>names_from <span class='op'>=</span> <span class='va'>Year</span>, values_from <span class='op'>=</span> <span class='va'>AverageAggValue</span><span class='op'>)</span></span>
 <span></span>
 <span><span class='va'>filtered_data</span></span></code></pre>
 </div>
@@ -1616,12 +1843,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>countryavggdp</span> <span class='op'>&lt;-</span> <span class='va'>gdpdata1</span> <span class='op'>|&gt;</span></span>
-<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>YearCode</span> <span class='op'>&gt;=</span> <span class='fl'>2010</span> <span class='op'>&amp;</span> <span class='va'>YearCode</span> <span class='op'>&lt;=</span> <span class='fl'>2019</span>, </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Year</span> <span class='op'>&gt;=</span> <span class='fl'>2010</span> <span class='op'>&amp;</span> <span class='va'>Year</span> <span class='op'>&lt;=</span> <span class='fl'>2019</span>, </span>
 <span>         <span class='va'>RegionCode</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"USA"</span>, <span class='st'>"JPN"</span>, <span class='st'>"CHN"</span>, <span class='st'>"CAN"</span>, <span class='st'>"BRA"</span>, <span class='st'>"ESP"</span>, <span class='st'>"FRA"</span>, <span class='st'>"SWE"</span>, <span class='st'>"KOR"</span>, <span class='st'>"MEX"</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
 <span></span>
 <span></span>
-<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>countryavggdp</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>YearCode</span>, y <span class='op'>=</span> <span class='va'>AggValue</span>, group <span class='op'>=</span> <span class='va'>RegionCode</span>, color <span class='op'>=</span> <span class='va'>RegionCode</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>countryavggdp</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Year</span>, y <span class='op'>=</span> <span class='va'>AggValue</span>, group <span class='op'>=</span> <span class='va'>RegionCode</span>, color <span class='op'>=</span> <span class='va'>RegionCode</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_minimal</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
@@ -1632,10 +1859,100 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_continuous</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fl'>2010</span><span class='op'>:</span><span class='fl'>2019</span><span class='op'>)</span> <span class='op'>+</span></span>
 <span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_y_continuous</a></span><span class='op'>(</span>labels <span class='op'>=</span> <span class='fu'><a href='https://scales.r-lib.org/reference/label_number.html'>label_number</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
-<p><img src="index_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
+<p><img src="index_files/figure-html5/unnamed-chunk-10-1.png" width="624" /></p>
 </div>
-<p>Graph Abouve Represents Average GDP per country in the past 10 years from 20 to 2019.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>inflows</span> <span class='op'>&lt;-</span> <span class='va'>imgdata1</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>VAR</span> <span class='op'>==</span> <span class='st'>'B11'</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>model</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>Value</span> <span class='op'>~</span> <span class='va'>Year</span>, data <span class='op'>=</span> <span class='va'>inflows</span><span class='op'>)</span> </span>
+<span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>inflows</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Year</span>, y <span class='op'>=</span> <span class='va'>Value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>'lm'</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span>, color <span class='op'>=</span> <span class='st'>'blue'</span><span class='op'>)</span> <span class='op'>+</span>  </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim</a></span><span class='op'>(</span><span class='fl'>100000</span>, <span class='fl'>200000</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>'Regression of Inflows of Foreign Population by Year'</span>,</span>
+<span>       x <span class='op'>=</span> <span class='st'>'Year'</span>,</span>
+<span>       y <span class='op'>=</span> <span class='st'>'Number of Inflows'</span><span class='op'>)</span></span></code></pre>
+</div>
+<img src="index_files/figure-html5/unnamed-chunk-11-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>usa_gdpdata1_imgdata1</span><span class='op'>$</span><span class='va'>AggValue</span>, <span class='va'>usa_gdpdata1_imgdata1</span><span class='op'>$</span><span class='va'>Value</span>, use <span class='op'>=</span> <span class='st'>"pairwise"</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>[1] 0.002506653</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>Value</span> <span class='op'>~</span> <span class='va'>Year</span>, data <span class='op'>=</span> <span class='va'>inflows</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>
+Call:
+lm(formula = Value ~ Year, data = inflows)
+
+Coefficients:
+(Intercept)         Year  
+  -38089.84        20.04  </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>model</span><span class='op'>)</span></span></code></pre>
+</div>
+<pre><code>
+Call:
+lm(formula = Value ~ Year, data = inflows)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+  -2423   -2241   -2103   -1892 2013957 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept) -38089.84   25225.55  -1.510    0.131
+Year            20.04      12.54   1.598    0.110
+
+Residual standard error: 25740 on 112534 degrees of freedom
+  (3 observations deleted due to missingness)
+Multiple R-squared:  2.268e-05, Adjusted R-squared:  1.379e-05 
+F-statistic: 2.552 on 1 and 112534 DF,  p-value: 0.1102</code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>us_inflows</span> <span class='op'>&lt;-</span> <span class='va'>imgdata1</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>VAR</span> <span class='op'>==</span> <span class='st'>'B11'</span>, <span class='va'>COU</span> <span class='op'>==</span> <span class='st'>'USA'</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>us_inflows</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Year</span>, y <span class='op'>=</span> <span class='va'>Value</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='st'>'lm'</span>, se <span class='op'>=</span> <span class='cn'>FALSE</span>, color <span class='op'>=</span> <span class='st'>'red'</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim</a></span><span class='op'>(</span><span class='fl'>10000</span>, <span class='fl'>200000</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>'Regression of Inflows of Immigrants to the United States by Year'</span>,</span>
+<span>       x <span class='op'>=</span> <span class='st'>'Year 2010-2019'</span>,</span>
+<span>       y <span class='op'>=</span> <span class='st'>'Number of Inflows of immigrants'</span><span class='op'>)</span> </span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-12-1.png" width="624" /></p>
+</div>
+<p>Introduction:</p>
+<p>Research question: To what extent does a country aggregate GDP contribute to inflow of migrants into the United States? Does an increase in gdp correlate to an increase in immigrants into a country?</p>
+<p>Hypothesis: There is a statistically significant correlation bewteen a countries aggregate GDP (gross domestic product) and inflow of migrants into the United States.</p>
+<p>Null hypothesis: There is no statistically significant relationship between a countries aggregate GDP and inflow of migrants intot the United States. A country GDP has no effect on the migration rate into the USA.</p>
+<p>Independent variables: Aggregated GDP of the United States</p>
+<p>Depdent variable: Inflow of immigrants into the United States</p>
+<p>In this study I would like to analyze the relationship between immigration levels into the United States and the relative aggregate GDP. In the past few years there has been an increase in immigration into the United States due to many factors like work, family, or lack of safety in native country. Currently, the US government has been polarized on the topic of immigration to the extent of impacting civil and international relationships with other countries. In this study we will determine wether the large countries like the US who has one of the highest aggregate GDP benefits from immigration. Regardless of the findings of this study, the american economy benefits from an increase in labor which stimulates the economy. This study has great importance because it can be used to encourage policies that benefits both foreign and native individuals in the US.</p>
+<p>Data:
+Graph 1:</p>
+<p>This graph illustrates the cumulative aggregate GDP for the following countries; United States, China, Sweden, Mexico, Korea, Japan, France, Spain, Canada, and Great Britain. The data illustrates countries respective gdp, these countries were selected because they make up majority of the worlds wealth. The three contenders witht he highest gdp were the United States, China, followed by Japan. As of 2019, the US and China have the highest gdp that is steadily increasing per year. Due to the US having the largest gdp, we will use it as a sample for the following investigation.</p>
+<p>Graph 2:
+This scatter plot illstrates the relationshiop between aggregate gdp and inflow of immigrants to the United States. The points are scattered all around the graph indicating that there may be a weak relationship between variables. There’s an abundant amount of outliers that roam above the regression line. The regression line is depicted by the blue line that has a weak positive slope, seems to be completely horizontal. The graph illustrates a very low positive correlation between the variables that emphasizes by the non linear relationship between the points.</p>
+<p>In this section the coefficient and p-value were also produced. The correlation coefficient is 0.003755969, 0.00376 rounded. The p-value, or the significance level is 0.8148, 0.815 rounded.</p>
+<p>Results:</p>
+<p>Based on the data illustrated by the graph above and the correlation coefficient along with the p-value the data can briefly be analyzed. The correlation coefficient is 0.003755969 while the p-value equates to 0.8148. Considering that the regression line appears to be horizontal it indicates that theres not a strong relationship between variables (GDP and inflow of immigrants). The correlation coefficient also indicates that theres a very weak linear relationship between the variables.</p>
+<p>Due to the correlations being weak, additional test were conducted like the p-value, which gave us a value of 0.8148 or 81 percent significance. The p-value associated with regression coefficient will aid in establishing a true test of relationship between variables. P-value that are smaller or equal to 0.05 (P &lt; 0.05, 5%) indicates that there strong evidence to reject the null hypothesis. For this data it suggest the opposite, meaning that the relationship between variables are not statistically significant. Emphasizing that there’s an 81 percent probability that these results were generated by chance.</p>
+<p>In conclusion there is no evidence to support that the null hypothesis should be rejected. Meaning that there is not evidence evidence to support the hypothesis on wether theres a linear relationship between the variables inflows of immigrants and the US aggregate gdp. Although we fail to reject the null hypothesis, this just means that more evidence is needed to fully establish a relationship. These results should not be interpreted casually as there is a lack of evidence to support the hypothesis. If one wanted to interpret the results casually they would need more resources which would lead to more in depth evidence. One thing that’s important to note is that this data may be influenced by other factors thats not included in this investigation.</p>
+<p>Conclusion:</p>
+<p>In conclusion, the data does not support the hypothesis. There is no clear linear relationship between inflows of immigrants to United States aggregate gross domestic product (GDP). Given a correlation that is approximate to zero and a p-value that is higher than the rejection of null hypothesis point of 5%, the data does not provide sufficient evidence to reject the null hypothesis. This means that the aforementioned hypothesis does not have evidence to support it.</p>
+<p>In this study there’s a few limitations that may impact the results. For instance, there may missing data that was not collected that may influence the outcome. Although the data was gathered by reputable sources, a limitation would be that the origin or the methodology of gathering the data was not published. Meaning that one has to assume that the data that is given is the only data that is prominent. Another limitation would be that the hypothesis assumes that theres a linear relationship between variables, in another experiment I would see if there’s evidence to support a non-linear relationship. A common limitation would be that theres measurement or computing errors. Human errors is common on cross-sectional design investigations. With more time, resources, and money I would analyze where I went wrong. I would also want to do a long term investigation between variables to establish wether or not there’s a relationship.</p>
+<p>Graph Above Represents Average GDP per country in the past 10 years from 20 to 2019.</p>
+<p>sources:</p>
+<p><a href="https://stats.oecd.org/Index.aspx?DataSetCode=MIG" class="uri">https://stats.oecd.org/Index.aspx?DataSetCode=MIG</a>
+<a href="https://febpwt.webhosting.rug.nl" class="uri">https://febpwt.webhosting.rug.nl</a>
+<a href="https://febpwt.webhosting.rug.nl/Dmn/AggregateXs/PivotShow" class="uri">https://febpwt.webhosting.rug.nl/Dmn/AggregateXs/PivotShow</a></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
